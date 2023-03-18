@@ -90,6 +90,7 @@ public:
 
     // Text insertion functions
     static void ConsumeGrapheme(std::wstring_view& chars) noexcept;
+    void ReplaceAttributes(til::CoordType row, til::CoordType columnBegin, til::CoordType columnEnd, const TextAttribute& attributes);
     void Write(til::CoordType row, bool wrapAtEOL, const TextAttribute& attributes, RowWriteState& state);
 
     OutputCellIterator Write(const OutputCellIterator givenIt);
@@ -249,6 +250,7 @@ private:
 
     wil::unique_virtualalloc_ptr<std::byte> _charBuffer;
     std::vector<ROW> _storage;
+    ROW _scratchRow;
     TextAttribute _currentAttributes;
     til::CoordType _firstRow = 0; // indexes top row (not necessarily 0)
 

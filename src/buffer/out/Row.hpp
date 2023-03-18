@@ -91,11 +91,9 @@ public:
     ROW(const ROW& other) = delete;
     ROW& operator=(const ROW& other) = delete;
 
-    explicit ROW(ROW&& other) = default;
+    ROW(ROW&& other) = default;
     ROW& operator=(ROW&& other) = default;
-
-    friend void swap(ROW& lhs, ROW& rhs) noexcept;
-
+    
     void SetWrapForced(const bool wrap) noexcept;
     bool WasWrapForced() const noexcept;
     void SetDoubleBytePadded(const bool doubleBytePadded) noexcept;
@@ -105,8 +103,8 @@ public:
     RowTextIterator Begin() const noexcept;
     RowTextIterator End() const noexcept;
 
+    void SetBuffers(wchar_t* charsBuffer, uint16_t* charOffsetsBuffer, uint16_t rowWidth, const TextAttribute& fillAttribute) noexcept;
     void Reset(const TextAttribute& attr);
-    void Resize(wchar_t* charsBuffer, uint16_t* charOffsetsBuffer, uint16_t rowWidth, const TextAttribute& fillAttribute);
     void TransferAttributes(const til::small_rle<TextAttribute, uint16_t, 1>& attr, til::CoordType newWidth);
 
     til::CoordType NavigateToPrevious(til::CoordType column) const noexcept;
